@@ -3,3 +3,69 @@ body {
     margin: 0;
     font-family: "Inter", sans-serif;
 }
+
+#container{
+    width : 800px;
+    margin : 0 auto;
+}
+
+#prof-pic{
+    
+    width:200px;
+    height:200px;
+    object-fit: cover;
+    border-radius: 100px;   /*half of the height to give perfect circle*/
+}
+
+#top-section{
+    text-align: center;
+    margin: 64px 0 ;
+}
+
+h1{
+    font-size: 56px;
+    font-weight: 400;
+    line-height: 72px;
+}
+
+p{
+    font-size: 24px;
+    line-height: 40px;
+}
+
+p a{
+    color: blue;
+    text-decoration: none;
+}
+
+hr{
+    margin: 56px 0;
+}
+
+.student-box{
+    border: 1px solid #bbb;
+    padding: 20px;
+    border-radius: 16px;
+    margin-bottom: 32px;
+}
+
+.student-box img{
+    width: 100%;
+}
+
+.student-box h2{
+    font-size: 32px;
+    margin-top: 32px;
+}
+
+.student-box p{
+    font-size: 20px;
+    line-height: 32px;
+    margin-bottom: 0;
+    margin-top: 8px;
+}
+
+.student-wrapper{
+    color:unset;
+    text-decoration: none;
+}
