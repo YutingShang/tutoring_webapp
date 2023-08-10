@@ -30,7 +30,7 @@ export default function Index() {
                     After graduating, I started tutoring online during lockdown on various subjects including Maths, Further Maths, Phyiscs and Chemistry to a range of students, primarily to the GCSE and A-Level cohort.
                 </p>
                 <p>
-                    In September, I will be starting my new job as a Maths teacher at <a href="https://www.lancingcollege.co.uk/"><b>Lancing College</b></a>,  and I will also be dedicating half of my time to study towards the <b>PGCE</b> qualification
+                    In September, I will be starting my new job as a Maths teacher at a local college.
                 </p>
 
                 <hr />
