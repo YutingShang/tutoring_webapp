@@ -1,8 +1,21 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCertificate } from '@fortawesome/free-solid-svg-icons';
-import Head from "next/head"
+import {faBars} from '@fortawesome/free-solid-svg-icons';
+import Head from "next/head";
+import ContentCard from "../components/ContentCard";
+import ReactTypingEffect from 'react-typing-effect';
+import AnchorLink from "react-anchor-link-smooth-scroll";
+import parse from 'html-react-parser';
+import cardsArray from '../data/cards';
 
 export default function Index() {
+
+  
+
+
+
+  
+
     return (
         <><Head>
             <title>Xinqi</title>
@@ -12,14 +25,33 @@ export default function Index() {
 
         </Head>
             <div id="nav-bar"><span>Xinqi</span></div>
+           
+                  <div className="dropdown">
+                    <button type="button" id="menu-button">
+                    <FontAwesomeIcon icon={faBars} size ="2xl" style={{ color: "#8ba370", }} />
+                    </button>
+                    
+                    <div className="dropdown-content">
+      <a href="#about-me">About Me</a>
+      <a href="#">Leave me a review!</a>
+      <a href="#">Administrator </a>
+      {/* <AnchorLink className="scroll-links" href='#flex-container'><button>Courses</button></AnchorLink> */}
+                    </div>
+                   
+    </div>
             <div id="container">
                 <div id="top-section">
 
-                    <button type="button" id="menu-button">Menu</button>
+                    
+              
+
+
 
                     <img src="/profile-pic.jpeg" id="prof-pic" />
 
-                    <h1>Hi, nice to meet you!<br />I'm Xinqi.</h1>
+                    <h1 className="title">Hi, nice to meet you! <br/></h1>
+                   
+        <ReactTypingEffect className='title' text = "I'm Xinqi." eraseSpeed={100}/>
                 </div>
 
               
@@ -30,14 +62,14 @@ export default function Index() {
                     After graduating, I started tutoring online during lockdown on various subjects including Maths, Further Maths, Phyiscs and Chemistry to a range of students, primarily to the GCSE and A-Level cohort.
                 </p>
                 <p>
-                    In September, I will be starting my new job as a Maths teacher at a local college.
+                    In September, I will be starting my new job as a Maths teacher at a selective mixed public college.
                 </p>
 
-                <hr />
+                <hr id="about-me"/>
 
 
                 <div id="flex-container">
-                    <a href="/feedback" className="content-wrapper">
+                    {/* <a href="/feedback" className="content-wrapper">
                         <div className="content-box">
 
                             <img src="/chat-bubbles.jpeg" alt="white sticky notes with blue speech marks " />
@@ -66,7 +98,8 @@ export default function Index() {
                             <p>Hands on crafts with overloaded <i>cuteness</i></p>
 
                         </div>
-                    </a>
+                    </a> */}
+                    {cardsArray.map( card => <ContentCard title = {card.title} description={card.description} link = {card.link} image = {card.image} alt = {card.alt}/>)}
 
                 </div>
 
