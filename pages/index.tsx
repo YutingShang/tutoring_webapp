@@ -99,7 +99,7 @@ export default function Index() {
 
                         </div>
                     </a> */}
-                    {cardsArray.map( card => <ContentCard title = {card.title} description={card.description} link = {card.link} image = {card.image} alt = {card.alt}/>)}
+                    {cardsArray.map( card => <ContentCard key={card.id} title = {card.title} description={card.description} link = {card.link} image = {card.image} alt = {card.alt}/>)}
 
                 </div>
 
