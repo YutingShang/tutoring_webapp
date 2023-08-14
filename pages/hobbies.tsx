@@ -4,7 +4,7 @@ export default function Index() {
             <div id = "container">
               
                 <h1>Hello World!</h1>
-                <p>This is the hobbies page.</p>
+                <p>This is the hobbies page. I like origami and micro-crochet</p>
                 <a href = "/">Back</a>
            
 
