@@ -306,3 +306,93 @@ hr {
     }
 
 }
+
+.speech-bubble{
+    width: fit-content;
+    max-width: 480px;
+    padding: 5px 48px;
+    margin: 10px;
+    margin-bottom: 5px;
+    border-radius: 20px;
+
+}
+
+.left .speech-bubble{
+    border-bottom-left-radius: 0;
+    background-color: #446043;
+    color: #f9f7f4;
+  
+}
+
+.right .speech-bubble{   /*the margin thing needs to be applied to the speech bubble div inside the 'right' div*/
+    border-bottom-right-radius: 0;
+    background-color: #a3afa2;
+    margin-left: auto;
+    margin-right: 10px;
+
+    
+}
+
+.right p{
+    width: fit-content;
+    margin-left: auto;
+    margin-right: 10px;
+    
+}
+
+.left p{
+   width: fit-content;
+    margin-left: 10px;
+}
+
+.under-bubble p{
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 24px;
+
+}
+
+.under-bubble{
+    padding-bottom: 32px;
+}
+
+#student-name{
+    color: #b8bab8;
+}
+
+
+.search-bar{
+
+   border: none;
+   border-bottom: solid;
+    border-bottom-color: #446043;
+    outline: none;
+   line-height: 30px;
+   font-size: 24px;
+   margin:10px auto 50px;
+   display: block;
+   border-radius: 0;
+   
+}
+
+#no-results{
+    width: fit-content;
+    margin:0 auto;
+    color: #b8bab8;
+}
+
+#home-circle{
+    width: 96px;
+    height: 96px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.intro{
+    font-size: 18px;
+    font-weight: 100;
+    max-width: 400px;
+    margin: 18px auto;
+}
+

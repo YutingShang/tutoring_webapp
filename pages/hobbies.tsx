@@ -8,12 +8,12 @@ export default function Index() {
 
     return (
         <>
-            <div id="container">
-
+        
                 <div className="nav-bar"><span>Hobbies</span></div>
                 <div className="container">
                     <div className="top-section">
-                        <p>I am a very creative person, and in my free time I love to delve into various handicrafts. Feel free to explore some of my creations! </p>
+                    <a href="/"><img src="/profile-pic.jpeg" id="home-circle" /></a>
+                        <p className="intro">I am a very creative person, and in my free time I love to delve into various handicrafts. Feel free to explore some of my creations! </p>
                     </div>
 
 
@@ -45,8 +45,7 @@ export default function Index() {
 
 
 
-            </div>
-
+         
         </>
     );
 }
