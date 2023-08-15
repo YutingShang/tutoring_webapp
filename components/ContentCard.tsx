@@ -8,7 +8,7 @@ export default function ContentCard(props:{
     description : string,
 }){
     const titleEffects = parse(props.title);
-    const descirptionEffects = parse(props.description);
+    const descriptionEffects = parse(props.description);
     return (<>
         <a href={props.link} className="content-wrapper">
                         <div className="content-box">
@@ -17,7 +17,7 @@ export default function ContentCard(props:{
 
                             <h2>{titleEffects}
                             </h2>
-                            <p>{descirptionEffects}</p>
+                            <p>{descriptionEffects}</p>
 
                         </div>
                     </a>
