@@ -13,7 +13,7 @@ export default function Index() {
                 <div className="nav-bar"><span>Hobbies</span></div>
                 <div className="container">
                     <div className="top-section">
-                        <p>I am a very creative person, and in my free time I love to delve into various handicrafts. Feel free to explore some of my creations!</p>
+                        <p>I am a very creative person, and in my free time I love to delve into various handicrafts. Feel free to explore some of my creations! </p>
                     </div>
 
 
@@ -33,7 +33,7 @@ export default function Index() {
                         ) :
                             (
                                 <>
-                                    <p>I started origami from a young age, I how a flat sheet of paper can be used to create 3D models</p>
+                                    <p>I started origami from a young age, I like how a flat sheet of paper can be used to create 3D models</p>
                                     {origamiArray.map(p => <DescriptionSpan key={p.id} image={p.image} description={p.description} />)}
 
                                 </>
