@@ -1,10 +1,10 @@
 export default function Index() {
     return (
         <>
-            <div id = "container">
+            <div className = "container">
               
                 <h1>Hello World!</h1>
-                <p>This is a teaching methodology page.</p>
+                <p className="m-100">This is a teaching methodology page.</p>
                 <a href = "/">Back</a>
              
 

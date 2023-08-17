@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
     padding: 0;
     margin: 0;
@@ -13,6 +17,7 @@ body {
 
 #prof-pic {
 
+    margin:0 auto;
     width: 40%;
     height: 40%;
     object-fit: cover;
@@ -85,7 +90,8 @@ hr {
 .content-box h2 {
     font-size: 32px;
     margin-top: 32px;
-
+    font-weight: bolder;
+    
 }
 
 .content-box p {
@@ -387,6 +393,7 @@ hr {
     height: 96px;
     object-fit: cover;
     border-radius: 50%;
+    display:inline;
 }
 
 .intro{

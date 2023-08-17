@@ -34,7 +34,7 @@ export default function Index() {
                 <div className="dropdown-content">
                     <a href="#about-me">About Me</a>
                     <a href="#">Leave me a review!</a>
-                    <a href="#">Administrator </a>
+                    <a href="/admin">Administrator </a>
                     {/* <AnchorLink className="scroll-links" href='#flex-container'><button>Courses</button></AnchorLink> */}
                 </div>
 
