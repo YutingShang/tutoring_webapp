@@ -1,9 +1,7 @@
-# Web Dev for Makers Starter NextJS Template
+# Tutoring webapp
 
-Use to bootstrap class (or future out-of-class) projects.
+Personal website with inbuilt comment feature to collect student feedback
+Interactive and mobile responsive
 
-To use this template, first make sure you have Node installed, and then run in your terminal:
-
-```
-npx create-next-app -e https://github.com/webdevformakers/webdevformakers-basic-template
-```
+On the hobbies and interests page, hover over the images to reveal descirption text
+On the student reviews page, search for student comments
