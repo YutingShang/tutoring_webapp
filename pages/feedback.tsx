@@ -20,10 +20,10 @@ export default function Index() {
                     </div>
 
                     <div className="reivew-section">
-                    {/* <div className="cursor"> */}
+            
                         <input  className="search-bar" type="text" placeholder="Type..." value={search} onChange={e=>setSearch(e.target.value)} />
                     <i></i>
-                    {/* </div> */}
+                   
               
              { (filteredReviewsArray.length>0)?
              
