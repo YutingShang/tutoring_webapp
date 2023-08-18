@@ -30,8 +30,8 @@ export default function Index() {
              (<>{filteredReviewsArray.map(rev=> 
                 (rev.id %2==0)?
                 
-                (<ReviewBubble direction="right" text={rev.text} level={rev.level} date={rev.date} student={rev.student} subject={rev.subject}/>) : 
-                (<ReviewBubble direction="left" text={rev.text} level={rev.level} date={rev.date} student={rev.student} subject={rev.subject}/>) )}</>)
+                (<ReviewBubble key={rev.id} direction="right" text={rev.text} level={rev.level} date={rev.date} student={rev.student} subject={rev.subject}/>) : 
+                (<ReviewBubble key={rev.id} direction="left" text={rev.text} level={rev.level} date={rev.date} student={rev.student} subject={rev.subject}/>) )}</>)
                 :
                 (<p id="no-results">No search results</p>)
              }  
