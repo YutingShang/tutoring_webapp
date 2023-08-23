@@ -12,7 +12,11 @@ body {
     max-width: 1000px;
     /*adjustable container size according to window size */
     padding: 0 16px;
-    margin: 0 auto;
+    margin: 0 auto 32px;
+}
+
+.container.hobbies{
+    margin-bottom:0
 }
 
 #prof-pic {
@@ -403,3 +407,7 @@ hr {
     margin: 18px auto;
 }
 
+textarea:invalid:focus {
+  outline-color: red;
+
+}

@@ -10,7 +10,7 @@ export default function Index() {
         <>
         
                 <div className="nav-bar"><span>Hobbies</span></div>
-                <div className="container">
+                <div className="container hobbies">
                     <div className="top-section">
                     <a href="/"><img src="/profile-pic.jpeg" id="home-circle" /></a>
                         <p className="intro">I am a very creative person, and in my free time I love to delve into various handicrafts. Feel free to explore some of my creations! </p>
