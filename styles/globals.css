@@ -328,7 +328,7 @@ hr {
     margin: 10px;
     margin-bottom: 5px;
     border-radius: 20px;
-
+    word-break: break-word;
 }
 
 .left .speech-bubble{
@@ -346,6 +346,10 @@ hr {
     margin-right: 10px;
 
     
+}
+
+.right{
+    padding-left: 10px;
 }
 
 .right p{
