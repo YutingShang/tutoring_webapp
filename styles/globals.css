@@ -19,6 +19,10 @@ body {
     margin-bottom:0
 }
 
+.container.editpage{
+    padding: 0 32px;
+}
+
 #prof-pic {
 
     margin:0 auto 20px;
@@ -180,7 +184,7 @@ hr {
     height: fit-content;
   }
   
-  .dropdown .dropbtn {
+  /* .dropdown .dropbtn {
     font-size: 17px;    
     border: none;
     outline: none;
@@ -189,7 +193,7 @@ hr {
     background-color: inherit;
     font-family: inherit;
     margin: 0;
-  }
+  } */
   
   .dropdown-content {
     display: none;
@@ -410,4 +414,25 @@ hr {
 textarea:invalid:focus {
   outline-color: red;
 
+}
+
+.reviewButton{     /*so long text in buttons break if necessary*/
+    white-space: normal !important;
+    word-break: break-word;
+}
+
+
+.bob{
+    width: 100%;
+}
+div[contenteditable]:empty:before{
+    margin:10px;
+}
+span[contenteditable]:empty:before{
+    display: inline-block;
+    width: calc(100% - 40px);    
+    /* so you can click on the entire span row to edit and the span stops just before the 'edit' label */
+    
+    content: attr(placeholder);
+    color: grey;
 }

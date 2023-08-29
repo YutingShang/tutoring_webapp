@@ -4,7 +4,7 @@ import teachingQuestionsArray from "../data/teaching-questions";
 import QuestionCard from "../components/QuestionCard";
 
 
-export default function Index() {
+export default function Teaching() {
     const [quoteObject, setQuoteObject] = useState<{ quote: string, author: string, category: string } | null>(null)
     const [treeArray, setTreeArray] = useState([teachingQuestionsArray[0]]) //start with the first teaching-question object
     //disclaimer, not actually a tree, more like a decision tree/graph
@@ -14,7 +14,7 @@ export default function Index() {
     useEffect(() => {
         fetch('/api/fetch-data')
             .then(res => res.json())
-            .then(data => setQuoteObject(data))
+            .then(data => setQuoteObject(data))      //its a json object with quote, author and category properties
             .catch(e => { console.log(e) })
     }, [])
 

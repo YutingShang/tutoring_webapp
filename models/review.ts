@@ -3,20 +3,48 @@ import mongoose from "mongoose"
 const ReviewSchema = new mongoose.Schema({
 
     review:{
-        type: String, //{review: String, name: String, level: String, subject:String},
-        required: true
+            original: {
+                type:String,
+                required: true},
+            current: {
+                type:String,
+                required:false}     //nested structure 
     },
     subject:{
-        type: String,
-        required: true
+        original: {
+            type:String,
+            required: true},
+        current: {
+            type:String,
+            required:false}
     },
     level:{
-        type:String,
-        required: true
+        original: {
+            type:String,
+            required: true},
+        current: {
+            type:String,
+            required:false}
     },
-    name:{
-        type:String,
-        required: true   //could be 'anon'
+    name:{//could be 'anon'
+        original: {
+            type:String,
+            required: true},
+        current: {
+            type:String,
+            required:false}
+    },
+    displayed: {
+        type: Boolean,
+        required: true                
+    },
+    date:{      //date taught student
+        type: String,      
+        required: false
+    },
+    examBoard:{
+        type: String,
+        required: false
     }
 }, {
     timestamps:true,

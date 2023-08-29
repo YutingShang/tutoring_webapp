@@ -3,7 +3,7 @@ import DescriptionSpan from "../components/DescriptionSpan";
 import crochetArray from "../data/crochet";
 import origamiArray from "../data/origami";
 
-export default function Index() {
+export default function Hobbies() {
     const [tab, setTab] = useState("crochet");
 
     return (

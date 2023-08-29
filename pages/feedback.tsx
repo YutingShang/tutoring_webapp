@@ -2,7 +2,7 @@ import { useState } from "react";
 import reviewsArray from "../data/reviews";
 import ReviewBubble from "../components/ReviewBubble";
 
-export default function Index() {
+export default function Feedback() {
     const [search,setSearch] = useState("");
     const filteredReviewsArray = reviewsArray.filter(r=> r.text.toLowerCase().includes(search.toLowerCase()) ||
     r.subject.toLowerCase().includes(search.toLowerCase()) ||

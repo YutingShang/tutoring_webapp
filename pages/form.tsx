@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useState } from "react"
 
-export default function Index() {
+export default function Form() {
     const [newReview, setNewReview] = useState("")
     const [newName, setNewName] = useState("anon")
     const [newSubject, setNewSubject] = useState("-")

@@ -21,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
         console.log("What was it?" ,i)
         console.log(response.data)
-        res.json(response.data[i]) })  //the response returns an array of quotes
+        res.json(response.data[i]) })  //the response returns an array of quotes, sends one of them as a json 
         .catch(e => { console.log(e); })
 
     //no need for useEffect - thats for when you call it, and also could use try/catch statement

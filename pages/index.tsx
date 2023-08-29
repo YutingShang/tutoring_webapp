@@ -35,7 +35,6 @@ export default function Index() {
                     <a href="#about-me">About Me</a>
                     <a href="/form">Leave me a review!</a>
                     <a href="/admin">Administrator </a>
-                    {/* <AnchorLink className="scroll-links" href='#flex-container'><button>Courses</button></AnchorLink> */}
                 </div>
 
             </div>
