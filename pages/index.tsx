@@ -7,6 +7,7 @@ import ReactTypingEffect from 'react-typing-effect';
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import parse from 'html-react-parser';
 import cardsArray from '../data/cards';
+import HamburgerMenu from '../components/HamburgerMenu';
 
 export default function Index() {
 
@@ -26,18 +27,8 @@ export default function Index() {
         </Head>
             <div className="nav-bar"><span>Xinqi</span></div>
 
-            <div className="dropdown">
-                <button type="button" id="menu-button">
-                    <FontAwesomeIcon icon={faBars} size="2xl" style={{ color: "#8ba370", }} />
-                </button>
-
-                <div className="dropdown-content">
-                    <a href="#about-me">About Me</a>
-                    <a href="/form">Leave me a review!</a>
-                    <a href="/admin">Administrator </a>
-                </div>
-
-            </div>
+            <HamburgerMenu aboutMe leaveReview admin/>
+            
             <div className="container">
                 <div className="top-section">
 

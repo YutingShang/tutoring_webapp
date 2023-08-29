@@ -2,6 +2,7 @@ import { useState } from "react";
 import DescriptionSpan from "../components/DescriptionSpan";
 import crochetArray from "../data/crochet";
 import origamiArray from "../data/origami";
+import HamburgerMenu from "../components/HamburgerMenu";
 
 export default function Hobbies() {
     const [tab, setTab] = useState("crochet");
@@ -10,6 +11,8 @@ export default function Hobbies() {
         <>
         
                 <div className="nav-bar"><span>Hobbies</span></div>
+
+                <HamburgerMenu home aboutMe leaveReview admin/>
                 <div className="container hobbies">
                     <div className="top-section">
                     <a href="/"><img src="/profile-pic.jpeg" id="home-circle" /></a>

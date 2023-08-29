@@ -10,6 +10,7 @@ On the student reviews page, search for student comments which will filter by co
 
 With the review edit page, if you dont make any changes to a particular field, even if you clicked the 'edit' icon to expand the card, no changes will save
 
+On the Edit Review page, type 'anon' for the student name to be anonymous
 
 --------------------------------------------------------------------------------------------
 BUGS:
@@ -27,6 +28,6 @@ To add a new data field to each review when editing
 5. Create two new `useState` variables, one for HIDE_FIELD (boolean) and one for LATEST_FIELD (string), to show or hide the AdditionalEditCard and to capture the latest edit input
 6. Add a new case in the if..else statement in the `onAddField` function for when that FIELD gets selected and added
 7. Create a new ON_REMOVE_FIELD() function for when you press 'X' to remove the AdditionalEditCard
-8. Create a new <AdditionalEditCard> under the existing ones and fill in the relevant fields
+8. Create a new `<AdditionalEditCard>` under the existing ones and fill in the relevant fields
 9. In the `onSubmitChanges` function, put a new attribute for that FIELD in the `axios.put` request. Make it conditional to whether it has been edited
 10. In the /api/reviews.ts API endpoint, add a new attribute in the `ReviewModel.findOneAndUpdate` function for that FIELD

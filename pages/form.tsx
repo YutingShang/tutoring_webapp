@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useState } from "react"
+import HamburgerMenu from "../components/HamburgerMenu"
 
 export default function Form() {
     const [newReview, setNewReview] = useState("")
@@ -33,6 +34,8 @@ export default function Form() {
         <>
             {/* using the post endpoint when you submit a reviews*/}
             <div className="nav-bar"><span>Leave a Review!</span></div>
+
+            <HamburgerMenu home aboutMe admin/>
             <div className="container">
                 <div className="top-section">
                     <a href="/"><img src="/profile-pic.jpeg" id="home-circle" /></a>

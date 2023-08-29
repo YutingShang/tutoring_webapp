@@ -1,16 +1,55 @@
-import { useState } from "react";
-import reviewsArray from "../data/reviews";
+import { useState,useEffect } from "react";
+// import reviewsArray from "../data/reviews";
 import ReviewBubble from "../components/ReviewBubble";
+import axios from "axios"
+import HamburgerMenu from "../components/HamburgerMenu";
 
 export default function Feedback() {
     const [search,setSearch] = useState("");
-    const filteredReviewsArray = reviewsArray.filter(r=> r.text.toLowerCase().includes(search.toLowerCase()) ||
-    r.subject.toLowerCase().includes(search.toLowerCase()) ||
-    r.date.toLowerCase().includes(search.toLowerCase()) ||
-    r.level.toLowerCase().includes(search.toLowerCase())  )
+    // const filteredReviewsArray = reviewsArray.filter(r=> r.text.toLowerCase().includes(search.toLowerCase()) ||
+    // r.subject.toLowerCase().includes(search.toLowerCase()) ||
+    // r.date.toLowerCase().includes(search.toLowerCase()) ||
+    // r.level.toLowerCase().includes(search.toLowerCase())  )
+
+    //pulling data fromt the database
+
+    const [revsArray, setRevsArray] = useState<{ _id: string, review: {original: string, current:string}, name: {original: string, current:string}, level: {original: string, current:string}, subject: {original: string, current:string}, displayed: boolean, date:string, examBoard:string }[]>([]);
+   // console.log(revsArray)
+    function onRequest() {
+        axios.get("/api/review")
+            .then(res => { setRevsArray(res.data.reviewsArray) }).catch(e => console.log(e))     //gets the new data and then updates the local array
+    }
+
+    useEffect(() => {
+        onRequest();
+    }, [])    //run once at the start
+
+    useEffect(() => {
+        //refreshes every 2 secs to update
+
+        const interval = setInterval(() => {
+            onRequest()
+        }, 2000);  //every 2 secs, 1 sec = 1000 ms
+        return () => clearInterval(interval)
+    }, [onRequest])
+
+    console.log(revsArray.map(r=>r.displayed))
+
+    //new filtered array
+    const filteredReviewsArray = revsArray.filter(r=> 
+    (r.displayed) &&     //must be set to 'displayed' in admin AND one of the below (i.e. contains a searched phrase if there is a search)
+    (
+    (r.review.current??r.review.original).toLowerCase().includes(search.toLowerCase()) ||
+    (r.subject.current??r.subject.original.toLowerCase().includes(search.toLowerCase()) ) ||
+    (r.date && r.date.toLowerCase().includes(search.toLowerCase())) ||
+    (r.level.current?? r.level.original.toLowerCase().includes(search.toLowerCase()) )  
+    )
+    )
+
+    console.log("FILTER", filteredReviewsArray)
     return (
         <>
-            
+                <HamburgerMenu home aboutMe leaveReview admin/>
               
                 <div className="nav-bar"><span>Reviews</span></div>
                 <div className = "container">
@@ -27,11 +66,11 @@ export default function Feedback() {
               
              { (filteredReviewsArray.length>0)?
              
-             (<>{filteredReviewsArray.map(rev=> 
-                (rev.id %2==0)?
+             (<>{filteredReviewsArray.map((rev, index)=> 
+                (index %2!=0)?
                 
-                (<ReviewBubble key={rev.id} direction="right" text={rev.text} level={rev.level} date={rev.date} student={rev.student} subject={rev.subject}/>) : 
-                (<ReviewBubble key={rev.id} direction="left" text={rev.text} level={rev.level} date={rev.date} student={rev.student} subject={rev.subject}/>) )}</>)
+                (<ReviewBubble key={rev._id} direction="right" text={rev.review.current?? rev.review.original} level={rev.level.current?? rev.level.original} date={rev.date} student={rev.name.current??rev.name.original} subject={rev.subject.current??rev.subject.original}/>) : 
+                (<ReviewBubble key={rev._id} direction="left" text={rev.review.current?? rev.review.original} level={rev.level.current?? rev.level.original} date={rev.date} student={rev.name.current??rev.name.original} subject={rev.subject.current??rev.subject.original}/>) )}</>)
                 :
                 (<p id="no-results">No search results</p>)
              }  

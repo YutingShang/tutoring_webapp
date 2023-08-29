@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import LoadingIcons from 'react-loading-icons'
 import teachingQuestionsArray from "../data/teaching-questions";
 import QuestionCard from "../components/QuestionCard";
+import HamburgerMenu from "../components/HamburgerMenu";
 
 
 export default function Teaching() {
@@ -57,7 +58,7 @@ export default function Teaching() {
 
     return (
         <>
-
+            <HamburgerMenu home aboutMe leaveReview admin/>
             <div className="nav-bar"><span>Teaching</span></div>
             <div className="container">
 
