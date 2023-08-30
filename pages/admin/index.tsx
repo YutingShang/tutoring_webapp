@@ -41,7 +41,9 @@ export default function Admin() {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then(() => onRequest()).catch(e => console.log(e))
+        }).then(
+            // () => onRequest()    //dont call this again to stop glitches
+        ).catch(e => console.log(e))
 
 
     }

@@ -13,7 +13,8 @@ With the review edit page, if you dont make any changes to a particular field, e
 On the Edit Review page, type 'anon' for the student name to be anonymous
 
 --------------------------------------------------------------------------------------------
-BUGS:
+BUGS: 
+Card flashes blue and white if you click it too many times consecutively on the admin page. This is due to the UI being updated on the client side first, before the server updating the `displayed` value and then the page refreshing again
 
 
 
