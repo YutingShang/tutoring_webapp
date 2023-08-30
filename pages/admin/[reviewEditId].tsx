@@ -150,7 +150,7 @@ export default function ReviewPage(props: {
             <div className="max-w-2xl mx-auto ">
                 <div className="inline-block relative mb-10">   {/*margin bottom to the submit button*/}
                     {/*the Add button with the caret down icon */}
-                    <OutsideClickHandler onOutsideClick={() => setShowOption(false)}>     {/*small issue that it doesnt work when you click outside on the same line as the button */}
+                    <OutsideClickHandler onOutsideClick={() => setShowOption(false)}>     
                         <button onClick={() => { setShowOption(!showOption) }}>
                             <span className=" absolute top-0 left-0 inline-block mr-6 font-medium relative px-4 leading-loose py-1 bg-gray-100 border-slate-300 border rounded-lg shadow-[inset_0px_3px_3px_rgba(0,0,0,0.03)] ">
                                 {selectedOption === "-" ? (<><span className="text-slate-500">Add extra</span></>) : capitaliseFirst(selectedOption)}  &nbsp;&nbsp;

@@ -14,7 +14,8 @@ On the Edit Review page, type 'anon' for the student name to be anonymous
 
 --------------------------------------------------------------------------------------------
 BUGS: 
-Card flashes blue and white if you click it too many times consecutively on the admin page. This is due to the UI being updated on the client side first, before the server updating the `displayed` value and then the page refreshing again
+1. ~~Admin review edit page, the outside click handler doesnt work to minimise the menu when you click on the same line as the button 'Add extra'. To go around this, just click else where on the page or the 'Add extra' button to minimise the menu again.~~ FIXED (with inline-block) in commit `c2927361af5d98091e9f876cc1035227a4811b46`
+2. ~~Card flashes blue and white if you click it too many times consecutively on the admin page. This is due to the UI being updated on the client side first, before the server updating the `displayed` value and then the page refreshing again. ~~FIXED by removing refresh after axios request in commit `6f4fe85bacc9bd744c847cd42a17ae1ddc1db10c`
 
 
 
