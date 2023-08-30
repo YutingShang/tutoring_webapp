@@ -8,7 +8,7 @@ import LoadingIcons from 'react-loading-icons'
 export default function Admin() {
     const [revsArray, setRevsArray] = useState<{ _id: string, review: { original: string, current: string }, name: { original: string, current: string }, level: { original: string, current: string }, subject: { original: string, current: string }, displayed: boolean }[]>([]);
     //dont really need name, subject and level on this page
-    console.log(revsArray)
+    
     function onRequest() {
         axios.get("/api/review")
             .then(res => { setRevsArray(res.data.reviewsArray) }).catch(e => console.log(e))     //gets the new data and then updates the local array
@@ -30,6 +30,12 @@ export default function Admin() {
 
 
     function onToggleDisplay(id: string, displayed: boolean) {
+
+        //update the ui first, then update on server
+        let revsArrayCopy = [...revsArray]
+        let reviewItem = revsArrayCopy.find(r=>r._id==id)
+        reviewItem!.displayed = !reviewItem!.displayed
+        setRevsArray(revsArrayCopy)
 
         axios.put("/api/review", JSON.stringify({ _id: id, displayed: !displayed }), {
             headers: {
