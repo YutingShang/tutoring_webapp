@@ -33,20 +33,20 @@ export default function Feedback() {
         return () => clearInterval(interval)
     }, [onRequest])
 
-    console.log(revsArray.map(r=>r.displayed))
+    
 
     //new filtered array
     const filteredReviewsArray = revsArray.filter(r=> 
     (r.displayed) &&     //must be set to 'displayed' in admin AND one of the below (i.e. contains a searched phrase if there is a search)
     (
     (r.review.current??r.review.original).toLowerCase().includes(search.toLowerCase()) ||
-    (r.subject.current??r.subject.original.toLowerCase().includes(search.toLowerCase()) ) ||
-    (r.date && r.date.toLowerCase().includes(search.toLowerCase())) ||
-    (r.level.current?? r.level.original.toLowerCase().includes(search.toLowerCase()) )  
+    (r.subject.current??r.subject.original).toLowerCase().includes(search.toLowerCase())  ||
+    ((r.date? true: false) && r.date.toLowerCase().includes(search.toLowerCase())) ||
+    (r.level.current?? r.level.original).toLowerCase().includes(search.toLowerCase())   
     )
     )
-
-    console.log("FILTER", filteredReviewsArray)
+    
+  
     return (
         <>
                 <HamburgerMenu home aboutMe leaveReview admin/>

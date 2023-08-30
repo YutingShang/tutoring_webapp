@@ -80,11 +80,11 @@ export default function ReviewPage(props: {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then(
-
+        }).then(()=>
+            window.location.reload()
 
         ).catch(e => console.log(e))
-        window.location.reload()
+        
     }
 
 
