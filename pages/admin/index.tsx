@@ -3,15 +3,22 @@ import axios from "axios"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import LoadingIcons from 'react-loading-icons'
-import {getSession, signOut} from "next-auth/react"
+import { getSession, signOut } from "next-auth/react"
 import { GetServerSidePropsContext } from "next";
 import HamburgerMenu from "../../components/HamburgerMenu";
+import { Session } from "next-auth";
+import mongoose from "mongoose";
+import { UserModel } from "../../models/user";
+import OutsideClickHandler from "react-outside-click-handler";
+import AccountPanel from "../../components/AccountPanel";
 
+export default function Admin(props: {
+    session: Session
+}) {
 
-export default function Admin() {
-    
     const [revsArray, setRevsArray] = useState<{ _id: string, review: { original: string, current: string }, name: { original: string, current: string }, level: { original: string, current: string }, subject: { original: string, current: string }, displayed: boolean }[] | null>(null);
     //dont really need name, subject and level on this page
+    
 
     function onRequest() {
         axios.get("/api/review")
@@ -49,14 +56,18 @@ export default function Admin() {
             // () => onRequest()    //dont call this again to stop glitches
         ).catch(e => console.log(e))
 
-
     }
+    
+
     return (
         <>
 
-<HamburgerMenu home aboutMe leaveReview blue/> 
+            <HamburgerMenu home aboutMe leaveReview blue />
             <div className="container">
-                <div className="top-section">
+                <AccountPanel session={props.session}/>
+
+                <div className="lg:mt-[120px] mt-[150px] text-center mb-16">
+{/* <div className="top-section"> */}
                     <p className="intro">Select the ones that you want to display</p>
                 </div>
                 <div className="text-center">
@@ -64,7 +75,7 @@ export default function Admin() {
 
                     {revsArray ?    //whether it has been loaded yet, if not show loading icon
                         //whether the database is empty
-                        (revsArray.length == 0 ? <p className="text-[#b8bab8]">No reviews yet</p> : 
+                        (revsArray.length == 0 ? <p className="text-[#b8bab8]">No reviews yet</p> :
                             (revsArray.map((r) =>     //!!each should have a unique key prop
 
                                 //the blue button cards
@@ -81,25 +92,40 @@ export default function Admin() {
 
                                 </div>
 
-                            )) ) :
+                            ))) :
                         <LoadingIcons.TailSpin className="mx-auto block mt-[32px] w-6" stroke="#0369A1" strokeOpacity={1} />
                     }
 
                 </div>
 
-                <button onClick={()=>signOut()} className="mx-auto block bg-sky-700 text-white rounded-lg p-2  drop-shadow-lg mt-16 mb-[100px]">Sign out</button>
+
+
                 
 
-            </div>
+
+            </div >
 
         </>
     );
 }
 
 
-export async function getServerSideProps(context:GetServerSidePropsContext){
+export async function getServerSideProps(context: GetServerSidePropsContext) {
     const session = await getSession(context)
-    if (!session) return {redirect :{permanent: false,destination :"/login"}}         //go back to sign in page
-    return {props:{}}   //stay on this page
+    if (!session) return { redirect: { permanent: false, destination: "/login" } }         //go back to sign in page
+    console.log("Session on Admin", session)
+    try {
+        await mongoose.connect(process.env.MONGODB_URL as string)
+        const thisUser = await UserModel.findOne({ email: session.user.email })
+        
+        if (!thisUser) {
+            return { redirect: { permanent: false, destination: "/login" } }
+        }
+    } catch (e) {
+        console.log(e)
+        return { notFound: true }
+    }
+
+    return { props: { session: session } }   //stay on this page
 }
 

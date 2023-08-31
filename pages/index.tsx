@@ -8,6 +8,8 @@ import AnchorLink from "react-anchor-link-smooth-scroll";
 import parse from 'html-react-parser';
 import cardsArray from '../data/cards';
 import HamburgerMenu from '../components/HamburgerMenu';
+import { GetServerSidePropsContext } from 'next';
+import { getSession } from 'next-auth/react';
 
 export default function Index() {
 
@@ -67,3 +69,13 @@ export default function Index() {
         </>
     );
 }
+
+
+// export async function getServerSideProps(context: GetServerSidePropsContext) {
+//     const session = await getSession(context)
+//     if (!session) return { redirect: { permanent: false, destination: "/login" } }         //go back to sign in page
+//     console.log("Session???", session)
+    
+
+//     return { props: {} }   //stay on this page
+// }

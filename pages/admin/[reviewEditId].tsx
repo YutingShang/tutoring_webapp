@@ -10,6 +10,8 @@ import AdditionalEditCard from "../../components/AdditionalEditCard";
 import OutsideClickHandler from 'react-outside-click-handler';
 import { getSession } from "next-auth/react";
 import HamburgerMenu from "../../components/HamburgerMenu";
+import AccountPanel from "../../components/AccountPanel";
+import { Session } from "next-auth";
 
 
 
@@ -42,6 +44,7 @@ export async function getServerSideProps(context: any) {     //fetch data from t
             name: JSON.parse(JSON.stringify(reviewObject!.name)),
             date: reviewObject.date ? reviewObject.date : null,
             examBoard: reviewObject.examBoard ? reviewObject.examBoard : null,
+            session: session
         }
     }
 
@@ -57,7 +60,8 @@ export default function ReviewPage(props: {
     level: { original: string, current?: string },
     name: { original: string, current?: string },
     date: string,     //date taught student, might be null
-    examBoard: string   //might be null
+    examBoard: string,   //might be null
+    session: Session
 }) {
     const [latestReview, setLatestReview] = useState("")    //initially no changes made so "", will change when you input into the textbox
     const [latestName, setLatestName] = useState("")
@@ -136,7 +140,9 @@ export default function ReviewPage(props: {
     return (<>
     <HamburgerMenu home aboutMe leaveReview admin blue/> 
         <div className="container editpage">
-            <div className="top-section">
+            <AccountPanel session={props.session}/>
+            {/* <div className="top-section"> */}
+            <div className="lg:mt-[120px] mt-[150px] text-center mb-16">
                 <p className="intro">Make any changes.</p>
             </div>
 
