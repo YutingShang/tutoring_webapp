@@ -3,9 +3,13 @@ import axios from "axios"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import LoadingIcons from 'react-loading-icons'
+import {getSession, signOut} from "next-auth/react"
+import { GetServerSidePropsContext } from "next";
+import HamburgerMenu from "../../components/HamburgerMenu";
 
 
 export default function Admin() {
+    
     const [revsArray, setRevsArray] = useState<{ _id: string, review: { original: string, current: string }, name: { original: string, current: string }, level: { original: string, current: string }, subject: { original: string, current: string }, displayed: boolean }[] | null>(null);
     //dont really need name, subject and level on this page
 
@@ -50,7 +54,7 @@ export default function Admin() {
     return (
         <>
 
-
+<HamburgerMenu home aboutMe leaveReview blue/> 
             <div className="container">
                 <div className="top-section">
                     <p className="intro">Select the ones that you want to display</p>
@@ -83,10 +87,19 @@ export default function Admin() {
 
                 </div>
 
+                <button onClick={()=>signOut()} className="mx-auto block bg-sky-700 text-white rounded-lg p-2  drop-shadow-lg mt-16 mb-[100px]">Sign out</button>
+                
+
             </div>
 
         </>
     );
 }
 
+
+export async function getServerSideProps(context:GetServerSidePropsContext){
+    const session = await getSession(context)
+    if (!session) return {redirect :{permanent: false,destination :"/login"}}         //go back to sign in page
+    return {props:{}}   //stay on this page
+}
 

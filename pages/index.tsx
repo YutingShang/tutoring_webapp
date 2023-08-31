@@ -42,10 +42,10 @@ export default function Index() {
 
                 <p>
                     I'm a Natural Sciences graduate from the <b>University of Cambridge</b> where I studied Physical Natural Sciences specialising in Materials Science in my final year.
-                </p>
+                </p><br/>
                 <p>
                     After graduating, I started tutoring online during lockdown on various subjects including Maths, Further Maths, Phyiscs and Chemistry to a range of students, primarily to the GCSE and A-Level cohort.
-                </p>
+                </p><br/>
                 <p>
                     In September, I will be starting my new job as a Maths teacher at a selective mixed public college.
                 </p>

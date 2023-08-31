@@ -62,7 +62,7 @@ export default function Feedback() {
                 <div className="reivew-section">
 
                     <input className="search-bar" type="text" placeholder="Type..." value={search} onChange={e => setSearch(e.target.value)} />
-                    <i></i>
+                    {/* <i></i> */}
 
 
                     {filteredReviewsArray ? (
@@ -77,7 +77,7 @@ export default function Feedback() {
                             (<p id="no-results">No search results</p>) )
                         :
                         // Loading if not retrieved from database yet
-                        <LoadingIcons.TailSpin className="mx-auto block mt-[32px] w-6" stroke="#0369A1" strokeOpacity={1} />
+                        <LoadingIcons.TailSpin className="mx-auto block mt-[32px] w-6" stroke="#8ba370" strokeOpacity={1} />
                     }
                 </div>
             </div>

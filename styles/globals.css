@@ -444,13 +444,7 @@ textarea:invalid:focus {
 }
 
 
-.bob{
-    width: 100%;
-}
-div[contenteditable]:empty:before{
-    margin:10px;
-}
-span[contenteditable]:empty:before{
+[placeholder]:empty:before{
     display: inline-block;
     width: calc(100% - 40px);    
     /* so you can click on the entire span row to edit and the span stops just before the 'edit' label */
@@ -458,3 +452,8 @@ span[contenteditable]:empty:before{
     content: attr(placeholder);
     color: grey;
 }
+
+[placeholder]:empty:focus:before{        /*so placeholder hint disappears after you click on it*/
+    content: "";
+}
+

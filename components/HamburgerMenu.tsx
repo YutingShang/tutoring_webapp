@@ -7,11 +7,12 @@ export default function HamburgerMenu(props:{
     aboutMe?: boolean,
     leaveReview? : boolean,
     admin? :boolean
+    blue? :boolean
 }){
 return(<>
 <div className="dropdown">
                 <button type="button" id="menu-button">
-                    <FontAwesomeIcon icon={faBars} size="2xl" style={{ color: "#8ba370", }} />
+                    <FontAwesomeIcon icon={faBars} size="2xl" style={{ color: (props.blue?"#0369A1": "#8ba370" ) }} />
                 </button>
 
                 <div className="dropdown-content">

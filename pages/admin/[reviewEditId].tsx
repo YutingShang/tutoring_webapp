@@ -8,11 +8,17 @@ import { faCaretDown, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import SelectOption from "../../components/SelectOption";
 import AdditionalEditCard from "../../components/AdditionalEditCard";
 import OutsideClickHandler from 'react-outside-click-handler';
+import { getSession } from "next-auth/react";
+import HamburgerMenu from "../../components/HamburgerMenu";
 
 
 
 
 export async function getServerSideProps(context: any) {     //fetch data from the server, runs on the server
+
+    const session = await getSession(context)
+    if (!session) return {redirect :{permanent: false,destination :"/login"}}         //go back to sign in page
+    //otherwise do the stuff below
 
     await mongoose.connect(process.env.MONGODB_URL as string);
     const revsArray = await ReviewModel.find();          //get from the database
@@ -128,6 +134,7 @@ export default function ReviewPage(props: {
 
     console.log(latestExamBoard)
     return (<>
+    <HamburgerMenu home aboutMe leaveReview admin blue/> 
         <div className="container editpage">
             <div className="top-section">
                 <p className="intro">Make any changes.</p>
