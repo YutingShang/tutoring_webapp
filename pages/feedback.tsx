@@ -14,7 +14,7 @@ export default function Feedback() {
 
     //pulling data fromt the database
 
-    const [revsArray, setRevsArray] = useState<{ _id: string, review: { original: string, current: string }, name: { original: string, current: string }, level: { original: string, current: string }, subject: { original: string, current: string }, displayed: boolean, date: string, examBoard: string }[] | null>(null);
+    const [revsArray, setRevsArray] = useState<{ _id: string, review: { original: string}, name: { original: string}, level: { original: string,}, subject: { original: string}, date: string, examBoard: string }[] | null>(null);
     // console.log(revsArray)
     function onRequest() {
         axios.get("/api/review")
@@ -38,12 +38,12 @@ export default function Feedback() {
 
     //new filtered array - could be null
     const filteredReviewsArray = revsArray?.filter(r =>
-        (r.displayed) &&     //must be set to 'displayed' in admin AND one of the below (i.e. contains a searched phrase if there is a search)
+        //one of the below (i.e. contains a searched phrase if there is a search)
         (
-            (r.review.current ?? r.review.original).toLowerCase().includes(search.toLowerCase()) ||
-            (r.subject.current ?? r.subject.original).toLowerCase().includes(search.toLowerCase()) ||
+            (r.review.original).toLowerCase().includes(search.toLowerCase()) ||
+            (r.subject.original).toLowerCase().includes(search.toLowerCase()) ||
             ((r.date ? true : false) && r.date.toLowerCase().includes(search.toLowerCase())) ||
-            (r.level.current ?? r.level.original).toLowerCase().includes(search.toLowerCase())
+            (r.level.original).toLowerCase().includes(search.toLowerCase())
         )
     )
 
@@ -71,8 +71,8 @@ export default function Feedback() {
                             (<>{filteredReviewsArray.map((rev, index) =>
                                 (index % 2 != 0) ?
 
-                                    (<ReviewBubble key={rev._id} direction="right" text={rev.review.current ?? rev.review.original} level={rev.level.current ?? rev.level.original} date={rev.date} student={rev.name.current ?? rev.name.original} subject={rev.subject.current ?? rev.subject.original} />) :
-                                    (<ReviewBubble key={rev._id} direction="left" text={rev.review.current ?? rev.review.original} level={rev.level.current ?? rev.level.original} date={rev.date} student={rev.name.current ?? rev.name.original} subject={rev.subject.current ?? rev.subject.original} />))}</>)
+                                    (<ReviewBubble key={rev._id} direction="right" text={rev.review.original} level={rev.level.original} date={rev.date} student={rev.name.original} subject={rev.subject.original} />) :
+                                    (<ReviewBubble key={rev._id} direction="left" text={rev.review.original} level={rev.level.original} date={rev.date} student={rev.name.original} subject={rev.subject.original} />))}</>)
                             :
                             (<p id="no-results">No search results</p>) )
                         :
