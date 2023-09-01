@@ -3,41 +3,38 @@ import { getSession, signIn, signOut } from "next-auth/react"
 import HamburgerMenu from "../components/HamburgerMenu"
 import mongoose from "mongoose"
 import { UserModel } from "../models/user"
-import { Session } from "next-auth"
-import {useState, useEffect} from "react"
+import { useEffect } from "react"
 import { useRouter } from 'next/router'
 
 
 
-export default function Login(props:{
+export default function Login(props: {
     failedAttempt: boolean,
 }) {
 
     const router = useRouter()   //use this later to decide whether to show 'failed' message
 
-    useEffect(()=>{
-        if (props.failedAttempt){       //sign out user if log in unsucessful
+    useEffect(() => {
+        if (props.failedAttempt) {       //sign out user if log in unsucessful
             signOut()      //this will refresh the page, run getServerSideProps again, returning { props: {failedAttempt:false} } so the useEffect hook doesnt run again
         }
-    },[])
-
-   //ok some weird glitch happened so i dont know if this method is any good
-
+    }, [])
+    //ok some weird glitch happened so i dont know if this method is any good
     
-    
+
     return (<>
         <HamburgerMenu home aboutMe leaveReview blue />
-       
+
         <div className="container h-screen text-center">
             <div className="top-1/2 relative translate-y-[-50%]">
                 <button onClick={() => signIn("google")} className="bg-sky-700 text-white rounded-lg p-2 px-3 drop-shadow-lg">Continue with Google</button>
-                
-                {(router.query.unauthorised==='true'??false) 
+
+                {(router.query.unauthorised === 'true' ?? false)
                     && <div className="mt-16 "><span className="text-[16px] text-slate-700 bg-red-200 p-2 px-4 rounded-full">Your login was unauthorised</span></div>}
-             </div>
-           
+            </div>
+
         </div>
-        
+
     </>)
 
 }
@@ -47,10 +44,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const session = await getSession(context)
     console.log("Session", session)
     if (!session) {
-        return { props: {failedAttempt:false} }         //go back to sign in page
+        return { props: { failedAttempt: false } }         //go back to sign in page
     }
-
-    
 
     try {
 
@@ -66,13 +61,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             //     image: session.user.image
             // })
 
-                                                             //invalid user  //go back to sign in page - user not allowed. Dont pass session:session props so user login session is dropped
-            if (context.query.unauthorised==='true'){        //if already on ?unauthorised=true, stay on this page, and set failedAttempt=true so they get logged out
-                return {props:{failedAttempt: true}}   
+            //invalid user  //go back to sign in page - user not allowed. Dont pass session:session props so user login session is dropped
+            if (context.query.unauthorised === 'true') {        //if already on ?unauthorised=true, stay on this page, and set failedAttempt=true so they get logged out
+                return { props: { failedAttempt: true } }
             }
 
             //if still on http://localhost/login then redirect to one with the special query parameter
-            return {redirect: {permanent: false, destination:"/login?unauthorised=true"}}
+            return { redirect: { permanent: false, destination: "/login?unauthorised=true" } }
         }
 
     } catch (e) {

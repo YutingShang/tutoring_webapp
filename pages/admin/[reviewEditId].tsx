@@ -12,6 +12,7 @@ import { getSession } from "next-auth/react";
 import HamburgerMenu from "../../components/HamburgerMenu";
 import AccountPanel from "../../components/AccountPanel";
 import { Session } from "next-auth";
+import { UserModel } from "../../models/user";
 
 
 
@@ -19,7 +20,14 @@ import { Session } from "next-auth";
 export async function getServerSideProps(context: any) {     //fetch data from the server, runs on the server
 
     const session = await getSession(context)
-    if (!session) return {redirect :{permanent: false,destination :"/login"}}         //go back to sign in page
+    if (!session) return { redirect: { permanent: false, destination: "/login" } }         //go back to sign in page
+    await mongoose.connect(process.env.MONGODB_URL as string)
+    const thisUser = await UserModel.findOne({ email: session.user.email })    //double check just in case session exists, but user unauthorised
+
+    if (!thisUser) {
+        return { redirect: { permanent: false, destination: "/login" } }        //go back to sign in page
+    }
+
     //otherwise do the stuff below
 
     await mongoose.connect(process.env.MONGODB_URL as string);
@@ -69,7 +77,7 @@ export default function ReviewPage(props: {
     const [latestLevel, setLatestLevel] = useState("")
     // console.log("The latest review", latestReview)
     const [showOption, setShowOption] = useState(false)
-    const [additionalFieldOptions, setAdditionalFieldOptions] = useState(["-", ...(!props.date ? ["date"] : []), ...(!props.examBoard ? ["exam board"]:[])])      //can export to a data file - maintain ALPHABETICALLY SORTED. On page load, it will conditionally show the options which have not yet been added
+    const [additionalFieldOptions, setAdditionalFieldOptions] = useState(["-", ...(!props.date ? ["date"] : []), ...(!props.examBoard ? ["exam board"] : [])])      //can export to a data file - maintain ALPHABETICALLY SORTED. On page load, it will conditionally show the options which have not yet been added
     const [selectedOption, setSelectedOption] = useState("-")
 
     const [hideDateField, setHideDateField] = useState(!props.date)    //show or hide depending if the field exists before. If null, then you set hidden to true (!props.date would be true since it doensnt exist)
@@ -78,23 +86,23 @@ export default function ReviewPage(props: {
     const [latestExamBoard, setLatestExamBoard] = useState("")
 
     function onSubmitChanges() {
-        axios.put("/api/review", JSON.stringify({
+        axios.put("/api/review-admin", JSON.stringify({
             _id: props._id,
             ...(latestReview != "" && { reviewLatestEdit: latestReview }),
             ...(latestSubject != "" && { subjectLatestEdit: latestSubject }),
             ...(latestLevel != "" && { levelLatestEdit: latestLevel }),
             ...(latestName != "" && { nameLatestEdit: latestName }),
             ...(latestDate != "" && { date: latestDate }),
-            ...(latestExamBoard!="" && {examBoard: latestExamBoard}),
+            ...(latestExamBoard != "" && { examBoard: latestExamBoard }),
         }), {     //update latest review, if changes were made, if empty string "" that means no changes were made
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then(()=>
+        }).then(() =>
             window.location.reload()
 
         ).catch(e => console.log(e))
-        
+
     }
 
 
@@ -133,14 +141,14 @@ export default function ReviewPage(props: {
         setLatestExamBoard("")      //removes the data captured
         setHideExamBoardField(true)
         setAdditionalFieldOptions([...additionalFieldOptions, 'exam board'].sort())
-        
+
     }
 
     console.log(latestExamBoard)
     return (<>
-    <HamburgerMenu home aboutMe leaveReview admin blue/> 
+        <HamburgerMenu home aboutMe leaveReview admin blue />
         <div className="container editpage">
-            <AccountPanel session={props.session}/>
+            <AccountPanel session={props.session} />
             {/* <div className="top-section"> */}
             <div className="lg:mt-[120px] mt-[150px] text-center mb-16">
                 <p className="intro">Make any changes.</p>
@@ -158,12 +166,12 @@ export default function ReviewPage(props: {
             <EditCard setLatest={setLatestReview} cardTitle="Review" originalText={props.review.original} currentText={props.review.current} />
 
             <AdditionalEditCard hidden={hideDateField} onRemove={onRemoveDate} setLatest={setLatestDate} cardTitle="Date" currentText={props.date} />
-            <AdditionalEditCard hidden={hideExamBoardField} onRemove={onRemoveExamBoard} setLatest={setLatestExamBoard} cardTitle="Exam Board" currentText={props.examBoard}/>
+            <AdditionalEditCard hidden={hideExamBoardField} onRemove={onRemoveExamBoard} setLatest={setLatestExamBoard} cardTitle="Exam Board" currentText={props.examBoard} />
 
             <div className="max-w-2xl mx-auto ">
                 <div className="inline-block relative mb-10">   {/*margin bottom to the submit button*/}
                     {/*the Add button with the caret down icon */}
-                    <OutsideClickHandler onOutsideClick={() => setShowOption(false)}>     
+                    <OutsideClickHandler onOutsideClick={() => setShowOption(false)}>
                         <button onClick={() => { setShowOption(!showOption) }}>
                             <span className=" absolute top-0 left-0 inline-block mr-6 font-medium relative px-4 leading-loose py-1 bg-gray-100 border-slate-300 border rounded-lg shadow-[inset_0px_3px_3px_rgba(0,0,0,0.03)] ">
                                 {selectedOption === "-" ? (<><span className="text-slate-500">Add extra</span></>) : capitaliseFirst(selectedOption)}  &nbsp;&nbsp;

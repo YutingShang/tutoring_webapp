@@ -19,7 +19,7 @@ const [showAccountPanel, setShowAccountPanel] = useState(false)
                     
                     
                     <button onClick={()=>setShowAccountPanel(!showAccountPanel)} onMouseOver={() => setShowAccountName(true)} onMouseOut={() => setShowAccountName(false)}>
-                        <img className="inline-block rounded-full w-[50px]  mr-0 ml-auto " src={props.session.user.image} />
+                        <img className="inline-block rounded-full sm:w-[50px] w-[40px]  mr-0 ml-auto " src={props.session.user.image} />
                     </button>
 
                     {showAccountPanel &&

@@ -9,7 +9,6 @@ import HamburgerMenu from "../../components/HamburgerMenu";
 import { Session } from "next-auth";
 import mongoose from "mongoose";
 import { UserModel } from "../../models/user";
-import OutsideClickHandler from "react-outside-click-handler";
 import AccountPanel from "../../components/AccountPanel";
 
 export default function Admin(props: {
@@ -18,10 +17,10 @@ export default function Admin(props: {
 
     const [revsArray, setRevsArray] = useState<{ _id: string, review: { original: string, current: string }, name: { original: string, current: string }, level: { original: string, current: string }, subject: { original: string, current: string }, displayed: boolean }[] | null>(null);
     //dont really need name, subject and level on this page
-    
+
 
     function onRequest() {
-        axios.get("/api/review")
+        axios.get("/api/review-admin")
             .then(res => { setRevsArray(res.data.reviewsArray) }).catch(e => console.log(e))     //gets the new data and then updates the local array
     }
 
@@ -48,7 +47,7 @@ export default function Admin(props: {
         reviewItem!.displayed = !reviewItem!.displayed
         setRevsArray(revsArrayCopy)
 
-        axios.put("/api/review", JSON.stringify({ _id: id, displayed: !displayed }), {
+        axios.put("/api/review-admin", JSON.stringify({ _id: id, displayed: !displayed }), {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -57,17 +56,17 @@ export default function Admin(props: {
         ).catch(e => console.log(e))
 
     }
-    
+
 
     return (
         <>
 
             <HamburgerMenu home aboutMe leaveReview blue />
             <div className="container">
-                <AccountPanel session={props.session}/>
+                <AccountPanel session={props.session} />
 
                 <div className="lg:mt-[120px] mt-[150px] text-center mb-16">
-{/* <div className="top-section"> */}
+                    {/* <div className="top-section"> */}
                     <p className="intro">Select the ones that you want to display</p>
                 </div>
                 <div className="text-center">
@@ -98,11 +97,6 @@ export default function Admin(props: {
 
                 </div>
 
-
-
-                
-
-
             </div >
 
         </>
@@ -117,9 +111,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     try {
         await mongoose.connect(process.env.MONGODB_URL as string)
         const thisUser = await UserModel.findOne({ email: session.user.email })
-        
+
         if (!thisUser) {
-            return { redirect: { permanent: false, destination: "/login" } }
+            return { redirect: { permanent: false, destination: "/login" } }        //go back to sign in page
         }
     } catch (e) {
         console.log(e)

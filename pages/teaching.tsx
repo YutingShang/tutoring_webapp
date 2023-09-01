@@ -3,9 +3,19 @@ import LoadingIcons from 'react-loading-icons'
 import teachingQuestionsArray from "../data/teaching-questions";
 import QuestionCard from "../components/QuestionCard";
 import HamburgerMenu from "../components/HamburgerMenu";
+import { Session } from "next-auth";
+import { GetServerSidePropsContext } from "next";
+import { getSession } from "next-auth/react";
+import AccountPanel from "../components/AccountPanel";
 
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+    const session = await getSession(context)
+    if (!session) return { props: {} }         //go back to sign in page
 
-export default function Teaching() {
+    return { props: { session: session } }   //stay on this page
+}
+
+export default function Teaching(props: { session: Session }) {
     const [quoteObject, setQuoteObject] = useState<{ quote: string, author: string, category: string } | null>(null)
     const [treeArray, setTreeArray] = useState([teachingQuestionsArray[0]]) //start with the first teaching-question object
     //disclaimer, not actually a tree, more like a decision tree/graph
@@ -45,22 +55,16 @@ export default function Teaching() {
             console.log(newQuestionObject !== undefined, treeArray)
         }
 
-
-
         setTreeArray(newTreeArray)
-
-
-
-
-
     }
 
 
     return (
         <>
-            <HamburgerMenu home aboutMe leaveReview admin/>
+            <HamburgerMenu home aboutMe leaveReview admin />
             <div className="nav-bar"><span>Teaching</span></div>
             <div className="container">
+                {props.session && <AccountPanel session={props.session} />}
 
                 <div className="top-section">
                     <a href="/" ><img src="/profile-pic.jpeg" id="home-circle" /></a>
