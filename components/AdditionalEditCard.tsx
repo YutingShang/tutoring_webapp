@@ -11,14 +11,14 @@ enum EditStates {
 
 export default function AdditionalEditCard(props: {
     cardTitle: string,
-    currentText: string   //could be null
+    currentText: string | null   //could be null
     setLatest: (arg0: string) => void,
     hidden: boolean
-    onRemove: ()=>void
+    onRemove: () => void
 }) {
     const [editState, setEditState] = useState(EditStates.NoEdit);
-   // const [hiddenState, setHiddenState] = useState(false)    //DOESNT WORK the hidden state, initially set to what was passed in from the main edit page
-   
+    // const [hiddenState, setHiddenState] = useState(false)    //DOESNT WORK the hidden state, initially set to what was passed in from the main edit page
+
     function onToggle() {     //edit or no edit
         if (editState === EditStates.Edit) {
             setEditState(EditStates.NoEdit)
@@ -60,10 +60,6 @@ export default function AdditionalEditCard(props: {
                             </button>
 
                         </>)}
-
-
-
-
 
                 </div>
                 {props.currentText != null ?     //whether it has been edited before

@@ -63,7 +63,7 @@ export default function Index(props: { session: Session }) {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const session = await getSession(context)
-    if (!session) return { props: {} }         //go back to sign in page
+    if (!session) return { props: {} }         //stay on page, without session
 
     return { props: { session: session } }   //stay on this page
 }

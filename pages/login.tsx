@@ -1,10 +1,10 @@
 import { GetServerSidePropsContext } from "next"
 import { getSession, signIn, signOut } from "next-auth/react"
 import HamburgerMenu from "../components/HamburgerMenu"
-import mongoose from "mongoose"
 import { UserModel } from "../models/user"
 import { useEffect } from "react"
 import { useRouter } from 'next/router'
+import databaseConnect from "../lib/connection"
 
 
 
@@ -49,7 +49,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     try {
 
-        await mongoose.connect(process.env.MONGODB_URL as string)
+        await databaseConnect()
         const thisUser = await UserModel.findOne({ email: session.user.email })
 
 

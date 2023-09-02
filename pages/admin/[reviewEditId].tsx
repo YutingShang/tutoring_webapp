@@ -1,5 +1,4 @@
 import axios from "axios"
-import mongoose from "mongoose"
 import { ReviewModel } from "../../models/review";
 import EditCard from "../../components/EditCard";
 import { useState } from "react"
@@ -13,6 +12,7 @@ import HamburgerMenu from "../../components/HamburgerMenu";
 import AccountPanel from "../../components/AccountPanel";
 import { Session } from "next-auth";
 import { UserModel } from "../../models/user";
+import databaseConnect from "../../lib/connection";
 
 
 
@@ -21,16 +21,15 @@ export async function getServerSideProps(context: any) {     //fetch data from t
 
     const session = await getSession(context)
     if (!session) return { redirect: { permanent: false, destination: "/login" } }         //go back to sign in page
-    await mongoose.connect(process.env.MONGODB_URL as string)
+    await databaseConnect()
     const thisUser = await UserModel.findOne({ email: session.user.email })    //double check just in case session exists, but user unauthorised
 
     if (!thisUser) {
-        return { redirect: { permanent: false, destination: "/login" } }        //go back to sign in page
+        return { redirect: { permanent: false, destination: "/login?unauthorised=true" } }        //go back to sign in page
     }
 
     //otherwise do the stuff below
 
-    await mongoose.connect(process.env.MONGODB_URL as string);
     const revsArray = await ReviewModel.find();          //get from the database
 
 
@@ -67,8 +66,8 @@ export default function ReviewPage(props: {
     subject: { original: string, current?: string },
     level: { original: string, current?: string },
     name: { original: string, current?: string },
-    date: string,     //date taught student, might be null
-    examBoard: string,   //might be null
+    date: string | null,     //date taught student, might be null
+    examBoard: string | null,   //might be null
     session: Session
 }) {
     const [latestReview, setLatestReview] = useState("")    //initially no changes made so "", will change when you input into the textbox

@@ -11,14 +11,14 @@ import { getSession } from "next-auth/react";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const session = await getSession(context)
-    if (!session) return { props: {} }         //go back to sign in page
+    if (!session) return { props: {} }         //stay on page, without session
 
     return { props: { session: session } }   //stay on this page
 }
 
 export default function Feedback(props: { session: Session }) {
     const [search, setSearch] = useState("");
-    const [revsArray, setRevsArray] = useState<{ _id: string, review: { original: string }, name: { original: string }, level: { original: string, }, subject: { original: string }, date: string, examBoard: string }[] | null>(null);
+    const [revsArray, setRevsArray] = useState<{ _id: string, review: string, name: string, level: string, subject: string, date: string, examBoard: string }[] | null>(null);
 
     function onRequest() {        //pulling data fromt the database
         axios.get("/api/review")
@@ -44,10 +44,10 @@ export default function Feedback(props: { session: Session }) {
     const filteredReviewsArray = revsArray?.filter(r =>
     //one of the below (i.e. contains a searched phrase if there is a search)
     (
-        (r.review.original).toLowerCase().includes(search.toLowerCase()) ||
-        (r.subject.original).toLowerCase().includes(search.toLowerCase()) ||
+        (r.review).toLowerCase().includes(search.toLowerCase()) ||
+        (r.subject).toLowerCase().includes(search.toLowerCase()) ||
         ((r.date ? true : false) && r.date.toLowerCase().includes(search.toLowerCase())) ||
-        (r.level.original).toLowerCase().includes(search.toLowerCase())
+        (r.level).toLowerCase().includes(search.toLowerCase())
     )
     )
 
@@ -74,8 +74,8 @@ export default function Feedback(props: { session: Session }) {
                             (<>{filteredReviewsArray.map((rev, index) =>
                                 (index % 2 != 0) ?
 
-                                    (<ReviewBubble key={rev._id} direction="right" text={rev.review.original} level={rev.level.original} date={rev.date} student={rev.name.original} subject={rev.subject.original} />) :
-                                    (<ReviewBubble key={rev._id} direction="left" text={rev.review.original} level={rev.level.original} date={rev.date} student={rev.name.original} subject={rev.subject.original} />))}</>)
+                                    (<ReviewBubble key={rev._id} direction="right" text={rev.review} level={rev.level} date={rev.date} student={rev.name} subject={rev.subject} />) :
+                                    (<ReviewBubble key={rev._id} direction="left" text={rev.review} level={rev.level} date={rev.date} student={rev.name} subject={rev.subject} />))}</>)
                             :
                             (<p id="no-results">No search results</p>))
                         :

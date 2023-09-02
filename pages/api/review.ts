@@ -1,9 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import mongoose from "mongoose"
 import { ReviewModel } from "../../models/review";
-
+import databaseConnect from "../../lib/connection";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse,) {
+
+    await databaseConnect()
 
     //publically accessible API endpoints
 
@@ -12,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse,
             if (!req.body.review || req.body.subject === '-' || req.body.level === '-' || req.body.review.length < 20) return res.status(400).send("Missing post body");
             console.log(req.body.name)
             console.log(process.env.MONGODB_URL)
-            await mongoose.connect(process.env.MONGODB_URL as string);   //establish a connection with the database
+
             await ReviewModel.create({
                 review:
                     { original: req.body.review }, //create new post item using the body datafield of the request
@@ -27,7 +28,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse,
             return res.status(200).send("Success")
         } else if (req.method === 'GET') {
 
-            await mongoose.connect(process.env.MONGODB_URL as string);
             const reviews = await ReviewModel.find();
 
 
@@ -38,10 +38,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse,
                 .map(obj => {
                     return {
                         _id: obj._id,
-                        review: { original: obj.review.current ?? obj.review.original },
-                        name: { original: obj.name.current ?? obj.name.original },
-                        subject: { original: obj.subject.current ?? obj.subject.original },
-                        level: { original: obj.level.current ?? obj.level.original },
+                        review:  obj.review.current ?? obj.review.original ,
+                        name:  obj.name.current ?? obj.name.original ,
+                        subject:  obj.subject.current ?? obj.subject.original ,
+                        level:  obj.level.current ?? obj.level.original ,
                         date: obj.date,
                         examBoard: obj.examBoard,
                     }

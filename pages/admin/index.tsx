@@ -7,9 +7,9 @@ import { getSession, signOut } from "next-auth/react"
 import { GetServerSidePropsContext } from "next";
 import HamburgerMenu from "../../components/HamburgerMenu";
 import { Session } from "next-auth";
-import mongoose from "mongoose";
 import { UserModel } from "../../models/user";
 import AccountPanel from "../../components/AccountPanel";
+import databaseConnect from "../../lib/connection";
 
 export default function Admin(props: {
     session: Session
@@ -109,11 +109,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     if (!session) return { redirect: { permanent: false, destination: "/login" } }         //go back to sign in page
     console.log("Session on Admin", session)
     try {
-        await mongoose.connect(process.env.MONGODB_URL as string)
+        await databaseConnect()
         const thisUser = await UserModel.findOne({ email: session.user.email })
 
         if (!thisUser) {
-            return { redirect: { permanent: false, destination: "/login" } }        //go back to sign in page
+            return { redirect: { permanent: false, destination: "/login?unauthorised=true" } }        //go back to sign in page
         }
     } catch (e) {
         console.log(e)
