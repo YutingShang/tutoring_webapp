@@ -84,21 +84,21 @@ export default function Admin(props: {
 
                 <div className="lg:mt-[120px] mt-[150px] text-center mb-16">
                     {/* <div className="top-section"> */}
-                    <p className="intro">Select the ones that you want to display</p>
+                    <p className="intro">Select the ones that you want to display. Search, filter and pen click on icon to edit</p>
                 </div>
                 <div className="text-center">
 
-                    <input className="border-solid border-b-2 border-b-sky-700 mb-12 outline-none text-[24px] block mx-auto " type="text" placeholder="Type..." value={search} onChange={e => setSearch(e.target.value)} />
+                    <input className="rounded-none border-solid border-b-2 border-b-sky-700 mb-12 outline-none text-[24px] block mx-auto " type="text" placeholder="Type..." value={search} onChange={e => setSearch(e.target.value)} />
 
                     <div className="flex max-w-[700px] mx-auto my-12 ">
                         <div className="w-1/3 px-1">
-                            <div onClick={()=>setFilterCondition("all")} className={"mx-auto rounded-full max-w-[180px] border-slate-300 border py-1 " + (filterCondition==='all'? "bg-gray-100": "bg-white")}>All</div>
+                            <div onClick={()=>setFilterCondition("all")} className={"mx-auto rounded-full max-w-[180px] border-slate-300 border py-1 " + (filterCondition==='all'? "bg-gray-200": "bg-white")}>All</div>
                         </div>
                         <div className="w-1/3 px-1">
-                            <div onClick={()=>setFilterCondition("displayed")} className={"mx-auto rounded-full max-w-[180px] border-slate-300 border py-1 " + (filterCondition==='displayed'? "bg-gray-100": "bg-white")}>Displayed</div>
+                            <div onClick={()=>setFilterCondition("displayed")} className={"mx-auto rounded-full max-w-[180px] border-slate-300 border py-1 " + (filterCondition==='displayed'? "bg-gray-200": "bg-white")}>Displayed</div>
                         </div>
                         <div className="w-1/3 px-1">
-                            <div onClick={()=>setFilterCondition("undisplayed")} className={"mx-auto rounded-full max-w-[180px] border-slate-300 border py-1 " + (filterCondition==='undisplayed'? "bg-gray-100": "bg-white")}>Hidden</div>
+                            <div onClick={()=>setFilterCondition("undisplayed")} className={"mx-auto rounded-full max-w-[180px] border-slate-300 border py-1 " + (filterCondition==='undisplayed'? "bg-gray-200": "bg-white")}>Hidden</div>
                         </div>
                        
                      
