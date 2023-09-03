@@ -105,7 +105,7 @@ export default function Admin(props: {
                         
                     
                     </div>
-                    {filteredArray ?    //whether it has been loaded yet, if not show loading icon
+                    {revsArray ?    //whether it has been loaded yet, if it is null - show loading icon
                         //whether the database is empty
                         (filteredArray.length == 0 ? <p className="text-[#b8bab8]">No reviews yet</p> :
                             (filteredArray.map((r) =>     //!!each should have a unique key prop
