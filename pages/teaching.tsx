@@ -26,7 +26,7 @@ export default function Teaching(props: { session: Session }) {
         fetch('/api/fetch-data')
             .then(res => res.json())
             .then(data => setQuoteObject(data))      //its a json object with quote, author and category properties
-            .catch(e => { console.log(e) })
+            .catch(e => { console.log(e); console.log(e.status); setQuoteObject({quote: "Success is getting what you want, happiness is wanting what you get.", author: "W. P. Kinsella" , category:"inspirational"}) })
     }, [])
 
 

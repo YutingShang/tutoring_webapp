@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     
-    axios.get("https://api.api-ninjas.com/v1/quotes", {
+    return axios.get("https://api.api-ninjas.com/v1/quotes", {
         params: {
 
             category: "inspirational",
@@ -19,9 +19,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
         console.log("What was it?", i)
         console.log(response.data)
-        res.json(response.data[i])
+        res.status(200).json(response.data[i])
     })  //the response returns an array of quotes, sends one of them as a json 
-        .catch(e => { console.log(e); })
+        .catch(e => { console.log(e); res.status(e.status).json(e.response.data)})
 
     //no need for useEffect - thats for when you call it, and also could use try/catch statement
 }
