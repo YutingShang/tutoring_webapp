@@ -19,8 +19,12 @@ body {
     margin-bottom:0
 }
 
-.container.editpage{
+.container.narrow{
     padding: 0 32px;
+}
+
+.container.bottomExtra{
+    margin-bottom:100px;
 }
 
 #prof-pic {

@@ -23,7 +23,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse,
 
             const reviews = await ReviewModel.find();
 
-            //user is authorised - return entire array         
+            //user is authorised - return entire array  
+            reviews.reverse()       
             return res.status(200).json({ reviewsArray: reviews })
 
         }
@@ -31,7 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse,
 
             await ReviewModel.findOneAndUpdate({ _id: req.body._id },  //filter condition then the desired update
                 {
-                    displayed: req.body.displayed, "review.current": req.body.reviewLatestEdit, "subject.current": req.body.subjectLatestEdit,
+                    displayed: req.body.displayed, newReview: req.body.newReview, "review.current": req.body.reviewLatestEdit, "subject.current": req.body.subjectLatestEdit,
                     "name.current": req.body.nameLatestEdit, "level.current": req.body.levelLatestEdit, date: req.body.date, examBoard: req.body.examBoard
                 })       //review.current gets the nested field review:{current:}      
 

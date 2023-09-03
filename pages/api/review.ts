@@ -24,21 +24,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse,
                 level:
                     { original: req.body.level },
                 displayed: false,            //by default it is not displayed in the feedback page yet
+                newReview: true,
             })
             return res.status(200).send("Success")
         } else if (req.method === 'GET') {
 
             const reviews = await ReviewModel.find();
-
-
-            //set all stuff to 'original' even if edited, mabye should rename 'original' to not be misleading
-            //'original' should always have a value, hence not keeping the 'current' one
+            reviews.reverse()
 
             const filteredRevsArray = reviews.filter(r => r.displayed)    //must be set to 'displayed' in admin 
-                .map(obj => {
+                .map((obj,i) => {
                     return {
+                        index: i,             //so filtering doesnt change left or right display
                         _id: obj._id,
-                        review:  obj.review.current ?? obj.review.original ,
+                        review:  obj.review.current ?? obj.review.original ,   //keep current if it exists, otherwise use the original. 
                         name:  obj.name.current ?? obj.name.original ,
                         subject:  obj.subject.current ?? obj.subject.original ,
                         level:  obj.level.current ?? obj.level.original ,
@@ -46,6 +45,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse,
                         examBoard: obj.examBoard,
                     }
                 })
+            
             return res.status(200).json({ reviewsArray: filteredRevsArray })
 
         }

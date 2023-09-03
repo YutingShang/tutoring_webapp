@@ -18,9 +18,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
 export default function Feedback(props: { session: Session }) {
     const [search, setSearch] = useState("");
-    const [revsArray, setRevsArray] = useState<{ _id: string, review: string, name: string, level: string, subject: string, date: string, examBoard: string }[] | null>(null);
+    const [revsArray, setRevsArray] = useState<{ index: number, _id: string, review: string, name: string, level: string, subject: string, date: string, examBoard: string }[] | null>(null);
 
-    function onRequest() {        //pulling data fromt the database
+    function onRequest() {        //pulling data from the database
         axios.get("/api/review")
             .then(res => { setRevsArray(res.data.reviewsArray) }).catch(e => console.log(e))     //gets the new data and then updates the local array
     }
@@ -40,7 +40,7 @@ export default function Feedback(props: { session: Session }) {
 
 
 
-    //new filtered array - could be null
+    //new filtered array on search- could be null
     const filteredReviewsArray = revsArray?.filter(r =>
     //one of the below (i.e. contains a searched phrase if there is a search)
     (
@@ -71,8 +71,8 @@ export default function Feedback(props: { session: Session }) {
                     {filteredReviewsArray ? (
                         (filteredReviewsArray.length > 0) ?
 
-                            (<>{filteredReviewsArray.map((rev, index) =>
-                                (index % 2 != 0) ?
+                            (<>{filteredReviewsArray.map(rev =>
+                                (rev.index % 2 != 0) ?
 
                                     (<ReviewBubble key={rev._id} direction="right" text={rev.review} level={rev.level} date={rev.date} student={rev.name} subject={rev.subject} />) :
                                     (<ReviewBubble key={rev._id} direction="left" text={rev.review} level={rev.level} date={rev.date} student={rev.name} subject={rev.subject} />))}</>)

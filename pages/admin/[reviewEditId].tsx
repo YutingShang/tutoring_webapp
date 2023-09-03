@@ -146,7 +146,7 @@ export default function ReviewPage(props: {
     console.log(latestExamBoard)
     return (<>
         <HamburgerMenu home aboutMe leaveReview admin blue />
-        <div className="container editpage">
+        <div className="container narrow">
             <AccountPanel session={props.session} />
             {/* <div className="top-section"> */}
             <div className="lg:mt-[120px] mt-[150px] text-center mb-16">

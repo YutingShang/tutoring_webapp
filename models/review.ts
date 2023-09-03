@@ -45,6 +45,10 @@ const ReviewSchema = new mongoose.Schema({
     examBoard:{
         type: String,
         required: false
+    },
+    newReview:{
+        type:Boolean,
+        required: true
     }
 }, {
     timestamps:true,
