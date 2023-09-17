@@ -12,8 +12,8 @@ export default function Index(props: { session: Session }) {
 
     return (
         <><Head>
-            <title>Xinqi</title>
-            <meta name="description" content="Xinqi personal tutoring website" />
+            <title>Home | Xinqi</title>
+            <meta name="description" content="Xinqi personal tutoring website home page" />
         </Head>
 
 

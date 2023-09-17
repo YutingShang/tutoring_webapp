@@ -13,6 +13,7 @@ import AccountPanel from "../../components/AccountPanel";
 import { Session } from "next-auth";
 import { UserModel } from "../../models/user";
 import databaseConnect from "../../lib/connection";
+import Head from "next/head";
 
 
 
@@ -145,6 +146,11 @@ export default function ReviewPage(props: {
 
     console.log(latestExamBoard)
     return (<>
+        <Head>
+            <title>{props.review.current?? props.review.original}</title>
+            <meta name="description" content="page to edit student reviews and track changes" />
+        </Head>
+        
         <HamburgerMenu home aboutMe leaveReview admin blue />
         <div className="container narrow">
             <AccountPanel session={props.session} />

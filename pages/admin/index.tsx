@@ -10,6 +10,7 @@ import { Session } from "next-auth";
 import { UserModel } from "../../models/user";
 import AccountPanel from "../../components/AccountPanel";
 import databaseConnect from "../../lib/connection";
+import Head from "next/head";
 
 export default function Admin(props: {
     session: Session
@@ -47,16 +48,16 @@ export default function Admin(props: {
         let reviewItem = revsArrayCopy.find(r => r._id == id)
         let updateObject;
 
-        if (reviewItem!.newReview){  //review is no longer 'unread'
-            reviewItem!.newReview=false
+        if (reviewItem!.newReview) {  //review is no longer 'unread'
+            reviewItem!.newReview = false
             updateObject = { _id: id, newReview: false }
-        }else{
+        } else {
             reviewItem!.displayed = !reviewItem!.displayed     //otherwise toggle displayed or not
-            updateObject = { _id: id, displayed: !displayed}
+            updateObject = { _id: id, displayed: !displayed }
         }
 
-      
-       
+
+
         setRevsArray(revsArrayCopy)
 
         axios.put("/api/review-admin", JSON.stringify(updateObject), {
@@ -70,13 +71,17 @@ export default function Admin(props: {
     }
 
     const filteredArray = (revsArray ?? []).filter(r =>
-        (filterCondition==='displayed'? r.displayed: true) && (filterCondition==='undisplayed'? !r.displayed: true) &&
+        (filterCondition === 'displayed' ? r.displayed : true) && (filterCondition === 'undisplayed' ? !r.displayed : true) &&
         (r.review.current ?? r.review.original).toLowerCase().includes(search.toLowerCase()) //might also want to search for name, date, subject, but they are not displayed on the admin cards
     )
 
 
     return (
         <>
+            <Head>
+                <title>Administrator | Xinqi </title>
+                <meta name="description" content="administrator page to select, filter and search for reviews" />
+            </Head>
 
             <HamburgerMenu home aboutMe leaveReview blue />
             <div className="container bottomExtra">
@@ -84,7 +89,7 @@ export default function Admin(props: {
 
                 <div className="lg:mt-[120px] mt-[150px] text-center mb-16">
                     {/* <div className="top-section"> */}
-                    <p className="intro">Select the ones that you want to display. Search, filter and pen click on icon to edit</p>
+                    <p className="intro">Select the ones that you want to display. Search, filter and click on pen icon to edit</p>
                 </div>
                 <div className="text-center">
 
@@ -92,18 +97,18 @@ export default function Admin(props: {
 
                     <div className="flex max-w-[700px] mx-auto my-12 ">
                         <div className="w-1/3 px-1">
-                            <div onClick={()=>setFilterCondition("all")} className={"mx-auto rounded-full max-w-[180px] border-slate-300 border py-1 " + (filterCondition==='all'? "bg-gray-200": "bg-white")}>All</div>
+                            <div onClick={() => setFilterCondition("all")} className={"mx-auto rounded-full max-w-[180px] border-slate-300 border py-1 " + (filterCondition === 'all' ? "bg-gray-200" : "bg-white")}>All</div>
                         </div>
                         <div className="w-1/3 px-1">
-                            <div onClick={()=>setFilterCondition("displayed")} className={"mx-auto rounded-full max-w-[180px] border-slate-300 border py-1 " + (filterCondition==='displayed'? "bg-gray-200": "bg-white")}>Displayed</div>
+                            <div onClick={() => setFilterCondition("displayed")} className={"mx-auto rounded-full max-w-[180px] border-slate-300 border py-1 " + (filterCondition === 'displayed' ? "bg-gray-200" : "bg-white")}>Displayed</div>
                         </div>
                         <div className="w-1/3 px-1">
-                            <div onClick={()=>setFilterCondition("undisplayed")} className={"mx-auto rounded-full max-w-[180px] border-slate-300 border py-1 " + (filterCondition==='undisplayed'? "bg-gray-200": "bg-white")}>Hidden</div>
+                            <div onClick={() => setFilterCondition("undisplayed")} className={"mx-auto rounded-full max-w-[180px] border-slate-300 border py-1 " + (filterCondition === 'undisplayed' ? "bg-gray-200" : "bg-white")}>Hidden</div>
                         </div>
-                       
-                     
-                        
-                    
+
+
+
+
                     </div>
                     {revsArray ?    //whether it has been loaded yet, if it is null - show loading icon
                         //whether the database is empty
@@ -111,7 +116,7 @@ export default function Admin(props: {
                             (filteredArray.map((r) =>     //!!each should have a unique key prop
 
                                 //the blue button cards
-                                <div key={r._id} className={"inline-block relative  m-4 rounded-lg drop-shadow-md " + (r.newReview?"bg-amber-100": r.displayed ? "bg-sky-200" : "bg-white")}>
+                                <div key={r._id} className={"inline-block relative  m-4 rounded-lg drop-shadow-md " + (r.newReview ? "bg-amber-100" : r.displayed ? "bg-sky-200" : "bg-white")}>
                                     <button className={"reviewButton inline-block p-5 mr-14"}
                                         onClick={() => onToggleDisplay(r._id, r.displayed)}>
 

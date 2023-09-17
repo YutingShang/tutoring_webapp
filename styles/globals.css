@@ -48,8 +48,8 @@ body {
 
 @media(max-width:400px) {
     #prof-pic {
-        width: 150px;
-        height: 150px;
+        width: 147px;
+        height: 147px;
     }
 }
 
@@ -84,15 +84,24 @@ hr {
 }
 
 .content-box {
-    border: 1px solid #bbb;
+    /* border: 1px solid #bbb; */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     padding: 18px;
     border-radius: 16px;
     margin-bottom: 32px;
-    background-color: white;
+    background-color: #f9f9f9;
     position: relative;
-    
-
 }
+
+@media(min-width:450px){
+    .content-box {
+        border: 1px solid #bbb;
+        box-shadow: none;
+        background-color: white;
+    } 
+}
+
+
 
 .content-box img {
     width: 100%;
@@ -207,7 +216,7 @@ hr {
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+    z-index: 50;
     border-radius: 10px;
   }
 
