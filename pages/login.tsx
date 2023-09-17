@@ -5,6 +5,7 @@ import { UserModel } from "../models/user"
 import { useEffect } from "react"
 import { useRouter } from 'next/router'
 import databaseConnect from "../lib/connection"
+import Head from "next/head"
 
 
 
@@ -20,9 +21,14 @@ export default function Login(props: {
         }
     }, [])
     //ok some weird glitch happened so i dont know if this method is any good
-    
+
 
     return (<>
+        <Head>
+            <title>Sign in to Administrator account</title>
+            <meta name="description" content="login page to administrator account" />
+        </Head>
+
         <HamburgerMenu home aboutMe leaveReview blue />
 
         <div className="container h-screen text-center">

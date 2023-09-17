@@ -6,6 +6,7 @@ import { Session } from "next-auth"
 import { GetServerSidePropsContext } from "next"
 import { getSession } from "next-auth/react"
 import AccountPanel from "../components/AccountPanel"
+import Head from "next/head"
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const session = await getSession(context)
@@ -47,6 +48,11 @@ export default function Form(props: { session: Session }) {
 
     return (
         <>
+            <Head>
+                <title>Leave a Review | Xinqi</title>
+                <meta name="description" content="an input form for students to fill out to submit a review" />
+            </Head>
+                    
             {/* using the post endpoint when you submit a reviews*/}
             <div className="nav-bar"><span>Leave a Review!</span></div>
 

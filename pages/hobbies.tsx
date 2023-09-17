@@ -7,6 +7,7 @@ import { Session } from "next-auth";
 import AccountPanel from "../components/AccountPanel";
 import { getSession } from "next-auth/react";
 import { GetServerSidePropsContext } from "next";
+import Head from "next/head";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const session = await getSession(context)
@@ -20,6 +21,11 @@ export default function Hobbies(props: { session: Session }) {
 
     return (
         <>
+            <Head>
+                <title>Hobbies | Xinqi</title>
+                <meta name="description" content="hobbies page showing images and a description, includes micro-crochet and origami" />
+            </Head>
+            
             <div className="nav-bar"><span>Hobbies</span></div>
 
             <HamburgerMenu home aboutMe leaveReview admin />

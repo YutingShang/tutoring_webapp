@@ -8,6 +8,7 @@ import { Session } from "next-auth";
 import AccountPanel from "../components/AccountPanel";
 import { GetServerSidePropsContext } from "next";
 import { getSession } from "next-auth/react";
+import Head from "next/head";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const session = await getSession(context)
@@ -54,6 +55,12 @@ export default function Feedback(props: { session: Session }) {
 
     return (
         <>
+
+            <Head>
+                <title>Reviews | Xinqi</title>
+                <meta name="description" content="student reviews with search option" />
+            </Head>
+            
             <HamburgerMenu home aboutMe leaveReview admin />
 
             <div className="nav-bar"><span>Reviews</span></div>
